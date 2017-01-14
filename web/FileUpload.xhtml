@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Journaldev Tutorial</title>
+    </h:head>
+    <h:body>
+        <h:form enctype="multipart/form-data" style="width:500px">
+            <p:growl id="msg" showDetail="true"></p:growl>
+            <p:fileUpload value="#{fileUploadBean.file}" mode="advanced" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+                          fileUploadListener="#{fileUploadBean.fileUploadListener}" update="msg"></p:fileUpload>
+        </h:form>
+    </h:body>
+</html>

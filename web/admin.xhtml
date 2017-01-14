@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <p:layout>
+            <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
+                <h>Welcome #{login.username}</h>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="center" header="Games List">
+                <h:form rendered="#{not empty simpleCrudBean.list}">
+                    <p:dataTable value="#{simpleCrudBean.list}" var="item">
+                        <p:column><f:facet name="header">ID</f:facet>#{item.id}</p:column>
+                        <p:column><f:facet name="header">Name</f:facet>#{item.name}</p:column>
+                        <p:column><f:facet name="header">Release Date</f:facet>#{item.releaseDate}</p:column>
+                        <p:column><f:facet name="header">Price</f:facet>#{item.price}</p:column>
+                        <p:column><f:facet name="header">Picture</f:facet>#{item.picture}</p:column>
+                        <p:column>
+                            <p:commandButton value="edit"  action="#{simpleCrudBean.edit(item)}" onclick="PF('Editdlg').show();"/>
+                        </p:column>
+                        <p:column>
+                            <p:commandButton value="delete" action="#{simpleCrudBean.delete(item)}" />
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+                <h:panelGroup rendered="#{empty simpleCrudBean.list}">
+                    <p>No games! Please add games.</p>
+                </h:panelGroup>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="west" size="400">
+                <h:panelGroup rendered="#{!simpleCrudBean.edit}">
+                    <h3>Add game</h3>
+                    <h:form>
+                        <p>Name: <p:inputText value="#{simpleCrudBean.item.name}" /></p>
+                        <p>Release Date: <p:inputText value="#{simpleCrudBean.item.releaseDate}" /></p>
+                        <p>Price: <p:inputText value="#{simpleCrudBean.item.price}" /></p>
+                        <p>Picture: <p:inputText value="#{simpleCrudBean.item.picture}" /></p>
+                        <p>
+                            <p:commandButton value="add" action="#{simpleCrudBean.add}" />
+                            <p:commandButton value="reset" action="#{simpleCrudBean.resetAdd}" />
+                        </p>
+                    </h:form>
+                </h:panelGroup>
+            </p:layoutUnit>
+            <p:dialog header="Edit Game #{simpleCrudBean.item.name}" widgetVar="Editdlg" modal="true">
+                <h:panelGroup>
+                    <h3>Edit game #{simpleCrudBean.item.id}</h3>
+                    <h:form>
+                        <p>Name: <p:inputText value="#{simpleCrudBean.item.name}" /></p>
+                        <p>Release Date: <p:inputText value="#{simpleCrudBean.item.releaseDate}" /></p>
+                        <p>Price: <p:inputText value="#{simpleCrudBean.item.price}" /></p>
+                        <p>Picture: <p:inputText value="#{simpleCrudBean.item.picture}" /></p>
+                        <p>
+                            <p:commandButton value="save" action="#{simpleCrudBean.saveEdit}" />
+                            <p:commandButton value="cancel" action="#{simpleCrudBean.cancelEdit}" />
+                        </p>
+                    </h:form>
+                </h:panelGroup>
+            </p:dialog>
+            <p>
+                <a href="#">Go back to index</a>
+            </p>
+        </p:layout>
+    </h:body>
+</html>
+
